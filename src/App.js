@@ -13,11 +13,18 @@ function App() {
   useEffect(() => {
     const lastCity = localStorage.getItem("lastCity");
     if (lastCity) fetchWeather(lastCity);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (weather) fetchWeather(weather.name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [unit]);
+
   const fetchWeather = async (cityName = city) => {
+    if (!cityName) return;
+
     try {
-      if (!cityName) return;
       const res = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=${unit}`
       );
@@ -42,12 +49,14 @@ function App() {
     }
   };
 
-  const toggleUnit = () => setUnit((prev) => (prev === "metric" ? "imperial" : "metric"));
+  const toggleUnit = () =>
+    setUnit((prev) => (prev === "metric" ? "imperial" : "metric"));
 
   return (
     <div className="app">
       <h1>🌤️ Weather Dashboard</h1>
 
+      {/* Search Section */}
       <div className="search">
         <input
           type="text"
@@ -62,10 +71,12 @@ function App() {
         </button>
       </div>
 
+      {/* Error */}
       {error && <p className="error">{error}</p>}
 
+      {/* Current Weather */}
       {weather && (
-        <div>
+        <div className="current-weather">
           <WeatherCard
             city={weather.name}
             temp={weather.main.temp}
@@ -75,7 +86,12 @@ function App() {
             wind={weather.wind.speed}
             unit={unit}
           />
+        </div>
+      )}
 
+      {/* 5-Day Forecast */}
+      {forecast.length > 0 && (
+        <>
           <h2 className="forecast-title">5-Day Forecast</h2>
           <div className="forecast">
             {forecast.map((item, index) => (
@@ -90,7 +106,7 @@ function App() {
               />
             ))}
           </div>
-        </div>
+        </>
       )}
     </div>
   );

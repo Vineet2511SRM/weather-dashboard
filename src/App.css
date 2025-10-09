@@ -1,27 +1,30 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to bottom, #74b9ff, #a29bfe);
-  color: #fff;
-  text-align: center;
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  background: linear-gradient(to bottom, #74b9ff, #a29bfe);
+  color: #fff;
+  text-align: center;
 }
 
 .app {
+  min-height: 100vh;
   padding: 2rem;
 }
 
 h1 {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
+  color: #2d3436;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .search {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 input {
@@ -38,21 +41,32 @@ button {
   cursor: pointer;
   background-color: #0984e3;
   color: white;
-  transition: background-color 0.2s ease;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 button:hover {
   background-color: #74b9ff;
+  transform: scale(1.05);
 }
 
 .error {
   color: #ffeaa7;
   margin: 1rem 0;
+  font-weight: bold;
+}
+
+.current-weather {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .forecast-title {
-  margin-top: 2rem;
   font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2d3436;
 }
 
 .forecast {
@@ -62,34 +76,14 @@ button:hover {
   gap: 1rem;
 }
 
-.weather-card {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 1rem;
-  width: 180px;
-  transition: transform 0.2s ease;
-}
-
-.weather-card:hover {
-  transform: scale(1.05);
-}
-
-.weather-card.small {
-  width: 150px;
-  font-size: 0.9rem;
-}
-
-.date {
-  font-size: 0.8rem;
-  opacity: 0.8;
-}
-
-.desc {
-  text-transform: capitalize;
-  margin: 0.5rem 0;
-}
-
-.details {
-  font-size: 0.9rem;
-  opacity: 0.8;
+@media (max-width: 600px) {
+  .weather-card {
+    width: 140px;
+  }
+  input {
+    width: 150px;
+  }
+  h1 {
+    font-size: 2rem;
+  }
 }
