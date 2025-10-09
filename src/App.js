@@ -10,11 +10,11 @@ function App() {
   const [error, setError] = useState("");
   const [unit, setUnit] = useState("metric");
 
-  useEffect(() => {
-    const lastCity = localStorage.getItem("lastCity");
-    if (lastCity) fetchWeather(lastCity);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+ useEffect(() => {
+  localStorage.removeItem("lastCity"); // Clear last city
+  setWeather(null);                     // Clear current weather
+  setForecast([]);                      // Clear forecast
+}, []);
 
   useEffect(() => {
     if (weather) fetchWeather(weather.name);
