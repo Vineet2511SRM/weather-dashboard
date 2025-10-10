@@ -1,5 +1,2 @@
-// config.js (backend only)
-import dotenv from 'dotenv';
-dotenv.config();
-
-export const API_KEY = process.env.API_KEY;
+// config.js (React version - frontend safe)
+export const API_KEY = process.env.REACT_APP_API_KEY;
