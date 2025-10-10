@@ -112,7 +112,7 @@
   color: #e0e0ff;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px) { /* Mobile responsiveness */
   .weather-card {
     width: 90%;
     padding: 1rem;
