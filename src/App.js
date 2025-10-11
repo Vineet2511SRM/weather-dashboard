@@ -10,11 +10,11 @@ function App() {
   const [error, setError] = useState("");
   const [unit, setUnit] = useState("metric");
 
- useEffect(() => {
-  localStorage.removeItem("lastCity"); // Clear last city
-  setWeather(null);                     // Clear current weather
-  setForecast([]);                      // Clear forecast
-}, []);
+  useEffect(() => {
+    localStorage.removeItem("lastCity"); // Clear last city
+    setWeather(null);                     // Clear current weather
+    setForecast([]);                      // Clear forecast
+  }, []);
 
   useEffect(() => {
     if (weather) fetchWeather(weather.name);
@@ -22,20 +22,28 @@ function App() {
   }, [unit]);
 
   const fetchWeather = async (cityName = city) => {
-    if (!cityName) return;
+    const trimmedCity = cityName.trim();
+    if (!trimmedCity) {
+      setError("Please enter a city name");
+      setWeather(null);
+      setForecast([]);
+      return;
+    }
 
     try {
+      // Current weather
       const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=${unit}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${trimmedCity}&appid=${API_KEY}&units=${unit}`
       );
-      if (!res.ok) throw new Error("City not found");
+      if (!res.ok) throw new Error("City not found. Try including country code, e.g., London,UK");
       const data = await res.json();
       setWeather(data);
       setError("");
-      localStorage.setItem("lastCity", cityName);
+      localStorage.setItem("lastCity", trimmedCity);
 
+      // 5-day forecast
       const forecastRes = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}&units=${unit}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${trimmedCity}&appid=${API_KEY}&units=${unit}`
       );
       const forecastData = await forecastRes.json();
       const filtered = forecastData.list.filter((item) =>
