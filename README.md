@@ -3,7 +3,7 @@
 A **React-based Weather Dashboard** that displays **current weather** and a **5-day forecast** using the [OpenWeatherMap API](https://openweathermap.org/api).  
 No backend required — fully frontend and responsive.
 
-🌐 **Live Demo:** [Weather Dashboard]https://weather-dashboard-ohfz.vercel.app/
+🌐 **Live Demo:** [Weather Dashboard](https://weather-dashboard-ten-zeta.vercel.app/)
 
 ---
 
